@@ -22,36 +22,30 @@ FlexiFit Gym wants a database to manage its members, trainers, and fitness progr
 - Payments tracked for memberships and sessions.
 
 ### ER Diagram:
-*Paste or attach your diagram here*  
-![ER Diagram](er_diagram_fitness.png)
+![WhatsApp Image 2025-08-28 at 21 41 52_0d3b2057](https://github.com/user-attachments/assets/067a8872-0a16-4d0f-80c3-cde5fbe2cb97)
 
 ### Entities and Attributes
 
-| Entity         | Attributes (PK, FK)                                                         | Notes                                      |
-| -------------- | --------------------------------------------------------------------------- | ------------------------------------------ |
-| **Member**     | PK: Member\_ID<br>Attributes: Name, MembershipType, StartDate               | A member can join multiple programs.       |
-| **Program**    | PK: Trainer\_ID<br>Attributes: Name                                         | A program is conducted by a trainer.       |
-| **Attendance** | PK: Attendance\_ID (in lower table)<br>FKs link to Member, Program, Payment | Tracks member’s participation in sessions. |
-| **Payment**    | PK: Payment\_ID<br>Attributes: MembershipFee, SessionFee                    | Payments are linked to attendance/members. |
+| Entity | Attributes (PK, FK)                | Notes   |
+|--------|--------------------                |----------|
+| User   |user_id (PK), name,mobile_no, address |Identifies the user.|  
+| Permission| per_id (PK), per_module, per_name|Defines permissions granted to the user.|       
+|Trainer| trainer_id (PK), name, mobile, email|Represents trainers managing the members.|      
+| Member|mem_id (PK), mem_type, mem_name, mem_mobile, mem_email| Represents gym members.|       
+| Fitness|fit_id (PK), fit_type, fit_desc|Defines the fitness programs.| 
 
 ### Relationships and Constraints
-
-| Relationship                                   | Cardinality                                                | Participation        | Notes                                                             |
-| ---------------------------------------------- | ---------------------------------------------------------- | -------------------- | ----------------------------------------------------------------- |
-| Member **joins** Program                       | 1\:N (Member to joins), N\:M (joins to Program)            | Total for joins      | A member can join many programs; a program can have many members. |
-| Program **conducts** Attendance                | 1\:M (Program to Attendance), 1\:N (Attendance to Program) | Partial              | Each attendance is conducted by one trainer.                      |
-| Attendance **is booked by** Member             | 1\:N (Member to Attendance)                                | Total for Attendance | Attendance records are tied to members.                           |
-| Attendance **is recorded/tracked for** Payment | 1\:N both sides                                            | Total                | Each payment is linked to attendance tracking.                    |
-
+| Relationship | Cardinality | Participation | Notes |
+|--------------|------------|---------------|-------|
+|User - Permission|1:N|Mandatory (A user must have at least one permission) | A user can have multiple permissions.|     
+| User - Trainer| N:M|Optional (User may or may not be a trainer)| A user can manage many trainers and vice versa.|
+| Trainer - Fitness|1:N|Mandatory (A trainer must be associated with at least one fitness type)|Trainers manage fitness types.|
+|Member - Fitness|N:M|Optional (Members may or may not be associated with a fitness type)|A member can be associated with multiple fitness types.|
 
 ### Assumptions
-- Each member must join at least one program.
-
-- Each attendance record belongs to exactly one member and one program.
-
-- Payment can cover membership fee or session fee.
-
-- A trainer may conduct multiple programs, but each program is managed by only one trainer.
+- Role-Based Access: Users have different roles (e.g., admin, trainer, member), with permissions assigned based on their role.
+- Trainer-Managed Programs: Trainers manage fitness programs, and members can join multiple fitness types, each guided by a trainer.
+- Flexible Member Participation: Members can participate in multiple fitness programs, with flexibility in the types and number of programs they join.
 
 ---
 
