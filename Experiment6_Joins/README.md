@@ -1,6 +1,6 @@
 # Experiment 6: Joins
-### Name : THANISH N
-### Reg.No : 212223220117
+### Name : THAMIZARASAN
+### Reg.No : 212223220116
 ## AIM
 To study and implement different types of joins.
 
